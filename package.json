@@ -1,0 +1,15 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "dependencies": {
+    "expo": "^25.0.0",
+    "prop-types": "^15.6.2",
+    "react": "16.2.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
+    "react-native-debugger-open": "^0.3.17",
+    "react-navigation": "^2.14.2"
+  },
+  "scripts": {
+    "postinstall": "rndebugger-open --expo"
+  }
+}
