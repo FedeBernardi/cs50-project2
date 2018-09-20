@@ -44,7 +44,7 @@ export default class MoviesDetailsScreen extends React.Component {
 
     const spin = this.state.scrollY.interpolate({
       inputRange: [0, 300],
-      outputRange: ['0deg', '180deg']
+      outputRange: ['0deg', '183deg']
     });
     console.log(this.state.scrollY);
     return <View>{Title && <View style={styles.container}>
@@ -69,7 +69,7 @@ export default class MoviesDetailsScreen extends React.Component {
               <DetailsInfoRow
                 items={[
                   Released.split(' ')[2],
-                  Rated,
+                  `Rated: ${Rated}`,
                   Type !== 'series' ? Runtime : `${totalSeasons} seasons`
                 ]}
               />
