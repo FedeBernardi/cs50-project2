@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import DetailsInfoRow from '../components/DetailsInfoRow';
 import RatingMovie from '../components/RatingMovie';
+import GenresRow from '../components/GenresRow';
 
 export default class MoviesDetailsScreen extends React.Component {
 
@@ -46,7 +47,7 @@ export default class MoviesDetailsScreen extends React.Component {
       inputRange: [0, 300],
       outputRange: ['0deg', '183deg']
     });
-    console.log(this.state.scrollY);
+
     return <View>{Title && <View style={styles.container}>
         <ImageBackground style={styles.background} source={{uri: Poster}}>
           <ScrollView
@@ -65,7 +66,7 @@ export default class MoviesDetailsScreen extends React.Component {
               <View>
                 <Text style={styles.title}>{Title}</Text>
               </View>
-              <DetailsInfoRow items={[Genre, <RatingMovie rating={imdbRating} />]}/>
+              <DetailsInfoRow items={[<GenresRow genres={Genre.split(', ')} />, <RatingMovie rating={imdbRating} />]}/>
               <DetailsInfoRow
                 items={[
                   Released.split(' ')[2],
