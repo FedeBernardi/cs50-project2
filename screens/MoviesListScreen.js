@@ -39,7 +39,7 @@ export default class MoviesListScreen extends React.Component {
         pagesArray = Array.from({length: pages - 1});
         pagesArray.forEach((element, index) => {
           // We add 2 to avoid the first page
-          //this.requestToAPI(text, index + 2); Stand by for now
+          this.requestToAPI(text, index + 2);
         });
       });
   }
@@ -48,7 +48,7 @@ export default class MoviesListScreen extends React.Component {
     fetch(`http://www.omdbapi.com/?apikey=e984745b&s=${text}&page=${page}`)
       .then( response => {
         let data = JSON.parse(response._bodyInit);
-        this.setState({data: data.Search});
+        this.setState({data: [...this.state.data, ...data.Search]});
       });
   }
 
