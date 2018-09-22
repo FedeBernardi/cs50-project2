@@ -2,6 +2,8 @@ import React from 'react';
 import { View, TextInput, StyleSheet, Button, FlatList } from 'react-native';
 import { Constants } from 'expo';
 
+import { searchToAPIByTitle } from '../api';
+
 import MoviesList from '../components/MoviesList';
 
 export default class MoviesListScreen extends React.Component {
@@ -22,34 +24,20 @@ export default class MoviesListScreen extends React.Component {
   }
 
   // We execute the first call to know how many results there are
-  firstRequestToAPI(text) {
-    fetch(`http://www.omdbapi.com/?apikey=e984745b&s=${text}`)
-      .then( response => {
-        let data = JSON.parse(response._bodyInit);
-        this.setState({data: data.Search});
-        console.log(data.Search);
+  async firstRequestToAPI(title) {
+    const data = await searchToAPIByTitle(title);
+          pages = Math.ceil(data.totalResults / 100),
+          // We calculate how many more calls we need to do to get all movies.
+          // Given that the API only allows 1000 calls a day I decided to reduce the
+          // number of pages to look for.
+          pagesArray = Array.from({length: pages - 1});
 
-        // Now we calculate how many more call we need to do to get all movies.
-        // Given that the API only allows 1000 calls a day I decided to reduce the
-        // number of pages to look for.
-        return Math.ceil(data.totalResults / 100);
-      })
-      .then((pages) => {
-        // We substract the first page because it was already fetch.
-        pagesArray = Array.from({length: pages - 1});
-        pagesArray.forEach((element, index) => {
-          // We add 2 to avoid the first page
-          this.requestToAPI(text, index + 2);
-        });
-      });
-  }
-
-  requestToAPI(text, page) {
-    fetch(`http://www.omdbapi.com/?apikey=e984745b&s=${text}&page=${page}`)
-      .then( response => {
-        let data = JSON.parse(response._bodyInit);
-        this.setState({data: [...this.state.data, ...data.Search]});
-      });
+    this.setState({data: data.Search});
+    pagesArray.forEach(async (element, index) => {
+      // We add 2 to avoid the first page
+      const data = await searchToAPIByTitle(title, index + 2);
+      this.setState({data: [...this.state.data, ...data.Search]});
+    });
   }
 
   onPressHandler() {

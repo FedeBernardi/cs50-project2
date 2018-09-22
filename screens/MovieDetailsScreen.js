@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, ImageBackground, ScrollView, Dimensions, Animat
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
+import { searchToAPIById } from '../api';
+
 import DetailsInfoRow from '../components/DetailsInfoRow';
 import RatingMovie from '../components/RatingMovie';
 import GenresRow from '../components/GenresRow';
@@ -14,14 +16,11 @@ export default class MoviesDetailsScreen extends React.Component {
     scrollY: new Animated.Value(0)
   }
 
-  callToAPIForDetails() {
-    let movieId = this.props.navigation.getParam('movieId');
+  async callToAPIForDetails() {
+    const movieId = this.props.navigation.getParam('movieId');
+          data = await searchToAPIById(movieId);
 
-    fetch(`http://www.omdbapi.com/?apikey=e984745b&i=${movieId}`)
-      .then( response => {
-        let data = JSON.parse(response._bodyInit);
-        this.setState({movie: data});
-      });
+    this.setState({movie: data});
   }
 
   componentDidMount() {
