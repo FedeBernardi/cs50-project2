@@ -4,17 +4,18 @@ import { Text, TouchableOpacity, Image, View, StyleSheet } from 'react-native';
 export default class MovieItem extends React.Component {
 
     render() {
-        let {Title, selectionHandler, imdbID, Poster} = this.props;
+        let {movie, selectionHandler} = this.props;
 
         return <TouchableOpacity
-            onPress={() => selectionHandler(imdbID)}
+            onPress={() => selectionHandler(movie.imdbID)}
             style={styles.container}
         >
             <View style={styles.imageContainer}>
-                <Image style={{width: '100%', height: '100%'}} source={{uri: Poster}} />
+                <Image style={{width: '100%', height: '100%'}} source={{uri: movie.poster}} />
             </View>
             <View style={styles.infoContainer}>
-                <Text style={styles.title}>{Title}</Text>
+                <Text style={styles.title}>{movie.title}</Text>
+                <Text>{`${movie.type} (${movie.year})`}</Text>
             </View>
         </TouchableOpacity>;
     }
@@ -27,10 +28,10 @@ const styles= StyleSheet.create({
         marginBottom: 10
     },
     infoContainer: {
-        justifyContent: 'center'
+        justifyContent: 'center',
+        padding: 10
     },
     title: {
-        padding: 10,
         fontSize: 18,
         height: 44,
     },

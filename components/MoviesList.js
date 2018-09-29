@@ -12,11 +12,10 @@ export default class MoviesList extends React.Component {
     }
 
     renderItem({item}) {
-        return <MovieItem {...item} selectionHandler={this.props.selectionHandler}/>
+        return <MovieItem movie={item} selectionHandler={this.props.selectionHandler}/>
     }
 
     render() {
-        console.log(this.props.data);
         return <FlatList 
             data={this.props.data}
             renderItem={this.renderItem}

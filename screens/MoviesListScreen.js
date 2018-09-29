@@ -32,11 +32,11 @@ export default class MoviesListScreen extends React.Component {
           // number of pages to look for.
           pagesArray = Array.from({length: pages - 1});
 
-    this.setState({data: data.Search});
+    this.setState({data: data});
     pagesArray.forEach(async (element, index) => {
       // We add 2 to avoid the first page
       const data = await searchToAPIByTitle(title, index + 2);
-      this.setState({data: [...this.state.data, ...data.Search]});
+      this.setState({data: [...this.state.data, ...data]});
     });
   }
 

@@ -28,27 +28,15 @@ export default class MoviesDetailsScreen extends React.Component {
   }
 
   render() {
-    let {
-      Title,
-      Poster,
-      Genre,
-      Actors,
-      imdbRating,
-      Released,
-      Rated,
-      Runtime,
-      Plot,
-      Type,
-      totalSeasons
-    } = this.state.movie;
+    let {movie} = this.state;
 
     const spin = this.state.scrollY.interpolate({
       inputRange: [0, 300],
       outputRange: ['0deg', '183deg']
     });
 
-    return <View>{Title && <View style={styles.container}>
-        <ImageBackground style={styles.background} source={{uri: Poster}}>
+    return <View>{movie.title && <View style={styles.container}>
+        <ImageBackground style={styles.background} source={{uri: movie.poster}}>
           <ScrollView
             style={styles.scroll}
             onScroll= {Animated.event(
@@ -63,18 +51,21 @@ export default class MoviesDetailsScreen extends React.Component {
             </View>
             <View style={styles.infoContainer}>
               <View>
-                <Text style={styles.title}>{Title}</Text>
+                <Text style={styles.title}>{movie.title}</Text>
               </View>
-              <DetailsInfoRow items={[<GenresRow genres={Genre.split(', ')} />, <RatingMovie rating={imdbRating} />]}/>
+              <DetailsInfoRow items={[
+                <GenresRow genres={movie.genres} />,
+                <RatingMovie rating={movie.imdbRating} />
+              ]}/>
               <DetailsInfoRow
                 items={[
-                  Released.split(' ')[2],
-                  `Rated: ${Rated}`,
-                  Type !== 'series' ? Runtime : `${totalSeasons} seasons`
+                  movie.released,
+                  `Rated: ${movie.rated}`,
+                  movie.runtime
                 ]}
               />
-              <Text style={styles.actors}>{`Cast: ${Actors}`}</Text>
-              <Text style={styles.plot}>{Plot}</Text>
+              <Text style={styles.actors}>{`Cast: ${movie.actors}`}</Text>
+              <Text style={styles.plot}>{movie.plot}</Text>
             </View>
           </ScrollView>
         </ImageBackground>
