@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class DetailsInfoRow extends React.Component {
+    static propTypes = {
+        items: PropTypes.array.isRequired
+    }
 
     render() {
         let {items} = this.props;

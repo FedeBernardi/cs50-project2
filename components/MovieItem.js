@@ -1,7 +1,12 @@
 import React from 'react';
 import { Text, TouchableOpacity, Image, View, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class MovieItem extends React.Component {
+    static propTypes = {
+        selectionHandler: PropTypes.func.isRequired,
+        movie: PropTypes.object.isRequired
+    }
 
     render() {
         let {movie, selectionHandler} = this.props;

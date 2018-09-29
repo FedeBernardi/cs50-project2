@@ -1,9 +1,14 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 
 import MovieItem from '../components/MovieItem';
 
 export default class MoviesList extends React.Component {
+    static propTypes = {
+        selectionHandler: PropTypes.func.isRequired,
+        data: PropTypes.array.isRequired
+    }
 
     constructor(props) {
         super(props);
